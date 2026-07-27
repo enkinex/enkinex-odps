@@ -33,8 +33,9 @@ a code project, we are able to mitigate specific challenges:
 
 > [!IMPORTANT]
 > **Backward Compatibility Disclaimer.**
-> - **Enkinex ODPS `v1.0.0`** implements the current **ODPS v1.0.0** and does **not** aim to provide earlier ODPS versions.
-> - **`apiVersion` is pinned to `v1.0.0`**: the upstream `v0.9.0` shape is not compatible (its root `team` is an array, not a `Team` object).
+> - **Enkinex ODPS `v1.0.0`** implements the current **ODPS v1.0.0** and does **not** aim to provide earlier ODPS
+    versions.
+> - **`apiVersion` is pinned to `v1.0.0`**.
 
 ---
 
@@ -65,8 +66,8 @@ that flat YAML cannot:
 
 - **Reusable Domain Libraries**: package common input/output port definitions, support channels, and team-ownership
   records into shared schema modules that many data products import and specialize.
-- **Reusable Port Catalogs**: define organization-wide, domain-specific management and output port conventions once,
-  and reference them across every data product in the domain.
+- **Reusable Port Catalogs**: define organization-wide, domain-specific management and output port conventions once, and
+  reference them across every data product in the domain.
 - **Enterprise Conventions Enforced in CI/CD**: use custom settings and `check` rules to enforce naming conventions and
   create standard, organized, machine-readable IDs for data products, ports, contracts, and teams.
 - **Export to the wider toolchain**: export dynamically generated governance parameters to Terraform, Argo CD, or
@@ -86,16 +87,16 @@ import.
 
 The library is composed of seven modules plus a root data product:
 
-| Module                 | Purpose                                                                                                                                                      | Detailed docs                                                   |
-|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| **`common`**           | Cross-cutting building blocks reused everywhere. Most code-reuse decisions live here and are inherited by the other modules.                                 | [docs/schemas/common](docs/schemas/common.md)                   |
-| **`management`**       | Access points for managing the data product itself: REST endpoints and topics for discoverability, observability, and control.                               | [docs/schemas/management](docs/schemas/management.md)           |
-| **`product`**          | The Software Bill of Materials, kept in its own package so both `product.input` and `product.output` can depend on it without a circular import.             | [docs/schemas/product](docs/schemas/product.md)                 |
-| **`product.input`**    | What a data product consumes: the input port and the contract dependencies an output port declares.                                                          | [docs/schemas/product-input](docs/schemas/product-input.md)     |
-| **`product.output`**   | What a data product produces: the output port, composing the SBOM and its input contracts.                                                                   | [docs/schemas/product-output](docs/schemas/product-output.md)   |
-| **`support`**          | Support and communication channels: email, chat, ticketing, and announcement feeds.                                                                          | [docs/schemas/support](docs/schemas/support.md)                 |
-| **`team`**             | Ownership: the team and its members, including the joined/left lifecycle.                                                                                    | [docs/schemas/team](docs/schemas/team.md)                       |
-| **`odps.k`** *(root)*  | The root **`DataProduct`** schema. It imports from every module and composes them into the final ODPS data product definition.                               | [docs/schemas/odps](docs/schemas/odps.md)                       |
+| Module                | Purpose                                                                                                                                          | Detailed docs                                                 |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
+| **`common`**          | Cross-cutting building blocks reused everywhere. Most code-reuse decisions live here and are inherited by the other modules.                     | [docs/schemas/common](docs/schemas/common.md)                 |
+| **`management`**      | Access points for managing the data product itself: REST endpoints and topics for discoverability, observability, and control.                   | [docs/schemas/management](docs/schemas/management.md)         |
+| **`product`**         | The Software Bill of Materials, kept in its own package so both `product.input` and `product.output` can depend on it without a circular import. | [docs/schemas/product](docs/schemas/product.md)               |
+| **`product.input`**   | What a data product consumes: the input port and the contract dependencies an output port declares.                                              | [docs/schemas/product-input](docs/schemas/product-input.md)   |
+| **`product.output`**  | What a data product produces: the output port, composing the SBOM and its input contracts.                                                       | [docs/schemas/product-output](docs/schemas/product-output.md) |
+| **`support`**         | Support and communication channels: email, chat, ticketing, and announcement feeds.                                                              | [docs/schemas/support](docs/schemas/support.md)               |
+| **`team`**            | Ownership: the team and its members, including the joined/left lifecycle.                                                                        | [docs/schemas/team](docs/schemas/team.md)                     |
+| **`odps.k`** *(root)* | The root **`DataProduct`** schema. It imports from every module and composes them into the final ODPS data product definition.                   | [docs/schemas/odps](docs/schemas/odps.md)                     |
 
 ---
 

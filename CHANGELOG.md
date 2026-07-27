@@ -24,7 +24,8 @@ This document tracks the history and evolution of the **Enkinex ODPS Library** f
     * Align `CONTRIBUTING.md` with the `test/odps.*.yaml` fixture naming
     * Add `SECURITY.md`
 * Validation
-    * Rename the fixtures to `test/odps.full.example.yaml` and `test/odps.module.{common,management,product-input,product-output,support,team}.yaml`
+    * Rename the fixtures to `test/odps.full.example.yaml` and
+      `test/odps.module.{common,management,product-input,product-output,support,team}.yaml`
     * Fold the standalone description fixture into `odps.module.common.yaml`, which now covers the whole `common` module
     * Annotate every fixture with the test cases it exercises
 * CI/CD

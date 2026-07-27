@@ -84,16 +84,16 @@ The library is organized as one KCL module per section of related ODPS definitio
 `$defs` section. If you're adding a new field or schema, find its home in this table (see the root `README.md` for the
 full rationale behind each module):
 
-| Module                 | Owns                                                                                                                       |
-|------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| **`common`**           | `AuthoritativeDefinition`, `CustomProperty`, `Description`, `Tags`, and the `AuthoritativeCustomizable`/`TagsDiscoverable` bases |
-| **`management`**       | `ManagementPort`                                                                                                            |
-| **`product`**          | `Sbom` (shared by `product.input` and `product.output`)                                                                     |
-| **`product.input`**    | `InputPort`, `InputContract`                                                                                                |
-| **`product.output`**   | `OutputPort`                                                                                                                |
-| **`support`**          | `Support`                                                                                                                   |
-| **`team`**             | `Team`, `TeamMember`                                                                                                        |
-| **`odps.k`** *(root)*  | The root **`DataProduct`** schema that composes every module above                                                          |
+| Module                | Owns                                                                                                                             |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| **`common`**          | `AuthoritativeDefinition`, `CustomProperty`, `Description`, `Tags`, and the `AuthoritativeCustomizable`/`TagsDiscoverable` bases |
+| **`management`**      | `ManagementPort`                                                                                                                 |
+| **`product`**         | `Sbom` (shared by `product.input` and `product.output`)                                                                          |
+| **`product.input`**   | `InputPort`, `InputContract`                                                                                                     |
+| **`product.output`**  | `OutputPort`                                                                                                                     |
+| **`support`**         | `Support`                                                                                                                        |
+| **`team`**            | `Team`, `TeamMember`                                                                                                             |
+| **`odps.k`** *(root)* | The root **`DataProduct`** schema that composes every module above                                                               |
 
 Add a fixture under [`test/`](test) that exercises any new or changed field (either extend `odps.full.example.yaml` or
 the relevant `odps.module.<module>.yaml` file), and run `just test` to confirm it validates.

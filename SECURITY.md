@@ -21,5 +21,4 @@ Include, where possible:
 - The library version (`kcl.mod`) and KCL CLI version in use.
 
 You will receive an acknowledgement from a maintainer listed in
-[`.github/CODEOWNERS`](.github/CODEOWNERS), and we will coordinate a fix and
-disclosure timeline with you.
+[`.github/CODEOWNERS`](.github/CODEOWNERS), and we will coordinate a fix and disclosure timeline with you.
