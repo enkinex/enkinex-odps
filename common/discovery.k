@@ -2,13 +2,16 @@ type Tags = [str]
 
 schema TagsDiscoverable(AuthoritativeCustomizable):
     """
-    Base schema providing the common extension points shared across ODPS
-    elements: tags, custom properties and authoritative definitions.
+    Base object carrying the optional properties shared by discoverable ODPS elements:
+    `tags`, `customProperties` and `authoritativeDefinitions`.
 
     Attributes
     ----------
-    tags : Tags, optional
-        A list of tags that may be assigned to the elements (object or property); the tags keyword may appear at any level. Tags may be used to better categorize an element. For example, `finance`, `sensitive`, `employee_record`.
+    tags: Tags, default is Undefined, optional.
+        A list of tags that may be assigned to the elements (object or property).
+        The tags keyword may appear at any level.
+        Tags may be used to better categorize an element.
+        Examples: "finance", "sensitive", "employee_record".
     """
     tags?: Tags
 

@@ -21,6 +21,49 @@
 - `urlPattern` lives as a bare regex string in its own file (`common/url.k`) rather than inside `AuthoritativeDefinition` (its original, single consumer at the time), because it's reused by 4 schemas across 4 different packages (`common`, `product`, `management`, `support`). A package-level constant avoids a circular or awkward cross-import just to reach one string.
 - The regex accepts any RFC-3986-style `scheme:opaque-part`, not only `scheme://authority`, specifically so `mailto:`/`tel:`-style URIs pass. `Support.url`'s docstring explicitly names `mailto` as a valid scheme upstream, but the pattern this port inherited required `://` and silently rejected it: fixed in this pass.
 
+## Library Conventions
+
+These apply to every module, not just `common`; they live here because `common` is where the library's shared decisions
+are recorded. All of them are held in common with the sibling `enkinex-odcs`, so a reader moving between the two
+libraries sees one style.
+
+### Docstrings
+
+Attribute headers follow numpydoc as `name: Type, default is <literal|Undefined>, <required|optional>.` — no space
+before the colon, an explicit `default is Undefined` when there is no default, and a trailing period. Descriptions are
+wrapped one sentence per line. Two optional trailing lines carry vocabulary:
+
+- `One of "a", "b", "c".` — for fields typed as a closed union (`DataProduct.status`).
+- `Examples: "a", "b", "c".` — for open `str` fields where upstream supplies `examples` but no `enum`
+  (`AuthoritativeDefinition.type`, `ManagementPort.content`/`.type`, `Support.tool`/`.scope`).
+
+**Docstrings name the wire key; declarations use the KCL identifier.** Four attributes collide with the reserved word
+`type` and are declared `$type`, but their docstring header is written `type:`. This is load-bearing rather than
+cosmetic: `kcl doc generate` matches attribute descriptions by wire name, so a `$type:` header silently produces an
+attribute with an *empty* description in `docs/library/odps.md`. Any future reserved-word attribute must follow the
+same rule.
+
+### Examples
+
+Every concrete schema carries a numpydoc `Examples` section holding valid KCL construction expressions (not YAML);
+`kcl doc generate` renders them verbatim into the reference documentation. The two synthesized base schemas
+(`AuthoritativeCustomizable`, `TagsDiscoverable`) have none, since they are never instantiated directly. Example
+values are drawn from the upstream ODPS reference examples with hostnames rewritten to `*.example`.
+
+### Checks
+
+Every `check` assertion carries a failure message naming the attribute and stating the expectation
+(`"dateIn must be an ISO-8601 date (YYYY-MM-DD)"`). Without one, KCL reports only `Instance check failed`, which
+identifies neither the field nor the rule. Assertions over optional attributes are guarded — either `... if attr` or
+`attr == Undefined or ...` — so an absent value is never itself an error.
+
+### Imports
+
+Intra-library imports are relative (`import .common` from the root, `import ..common` one level down,
+`import ...common` two), matching the sibling. They are also always at **package** granularity, never file-module
+granularity: KCL gives `product.Sbom` and `product.sbom.Sbom` distinct identities, and only the former is reachable by
+a downstream consumer. See [product](product.md) for the concrete failure this avoids.
+
 ## Open Questions
 
 - `urlPattern` is a best-effort regex, not a full RFC 3986 validator. If KCL ever ships a native URI-checking builtin, this constant should be replaced rather than hand-maintained further.
