@@ -1,26 +1,39 @@
+# Test for the `product.output` module: OutputPort, composing `product.Sbom`
+# and `product.input.InputContract` — the only place either is reachable from
+# the root, so this fixture covers the whole `product` package too.
 apiVersion: v1.0.0
 kind: DataProduct
-id: 44444444-4444-4444-8444-444444444444
-name: Output Port Test
+id: d47a1e10-0004-4c00-8000-0000000000d4
+name: Product Output Module Test
+version: 1.0.0
 status: deprecated
 
 outputPorts:
+  # Minimal output port: only the two mandatory fields (contractId is optional
+  # here, unlike on InputPort, matching upstream's differing `required` lists)
   - name: minimal-output
     version: 1.0.0
+
+  # Complete output port: every optional field and nested block populated
   - name: full-output
-    description: "Fully populated output port for stress testing"
+    description: "Fully populated output port"
     type: tables
     version: 3.0.0
     contractId: bbbbbbbb-0000-4000-8000-000000000001
+
+    # First SBOM omits `type` so the "external" default applies; second sets it
     sbom:
       - url: "https://sbom.enkinex.example/default-type.json"
       - type: internal
         url: "https://sbom.enkinex.example/internal.json"
+
+    # Upstream contract dependencies, both with the two mandatory fields
     inputContracts:
       - id: cccccccc-0000-4000-8000-000000000001
         version: 1.0.0
       - id: cccccccc-0000-4000-8000-000000000002
         version: 2.4.0
+
     tags: ["output", "curated", "gold"]
     customProperties:
       - property: refreshFrequency

@@ -1,9 +1,14 @@
+# Test for the `team` module: Team and TeamMember, including the
+# TagsDiscoverable tail on both and the replacement lifecycle
+# (dateOut is required whenever replacedByUsername is set).
 apiVersion: v1.0.0
 kind: DataProduct
-id: 77777777-7777-4777-8777-777777777777
-name: Team Test
+id: d47a1e10-0006-4c00-8000-0000000000d6
+name: Team Module Test
+version: 1.0.0
 status: draft
 
+# Team with the discoverable tail set; members go from complete to minimal
 team:
   name: "Customer Insights Team"
   description: "Owns and maintains the customer insights data products"
@@ -18,7 +23,9 @@ team:
       url: "https://glossary.enkinex.example/team-charter"
     - type: implementation
       url: "https://wiki.enkinex.example/team-runbook"
+
   members:
+    # Complete member: every optional field plus the whole discoverable tail
     - username: "alice@enkinex.example"
       name: "Alice Nakamura"
       description: "Data Product Owner"
@@ -31,6 +38,8 @@ team:
       authoritativeDefinitions:
         - type: businessDefinition
           url: "https://people.enkinex.example/alice"
+
+    # Departed member: replacedByUsername paired with the dateOut it requires
     - username: "bob@enkinex.example"
       name: "Bob Alvarez"
       description: "Former Data Steward, replaced"
@@ -38,9 +47,13 @@ team:
       dateIn: "2021-06-01"
       dateOut: "2023-12-31"
       replacedByUsername: "carol@enkinex.example"
+
+    # The replacement named above, still active (no dateOut)
     - username: "carol@enkinex.example"
       name: "Carol Singh"
       description: "Current Data Steward"
       role: "data steward"
       dateIn: "2024-01-02"
+
+    # Minimal member: only the mandatory username
     - username: "dave@enkinex.example"

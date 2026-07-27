@@ -19,7 +19,7 @@
 - Split into two schemas, not one, because upstream's own entities aren't uniform: `$defs.Description` has `customProperties` + `authoritativeDefinitions` but deliberately **no** `tags`. Rather than give `Description` an unused `tags` field, or duplicate the pair a second time, `AuthoritativeCustomizable` holds the pair and `TagsDiscoverable(AuthoritativeCustomizable)` layers `tags` on top: every consumer inherits from whichever base matches its actual upstream shape.
 - `Tags` is a `type` alias (`[str]`), not a `schema`, because `$defs.Tags` upstream is a bare array with no internal structure: a schema wrapper would add nothing.
 - `urlPattern` lives as a bare regex string in its own file (`common/url.k`) rather than inside `AuthoritativeDefinition` (its original, single consumer at the time), because it's reused by 4 schemas across 4 different packages (`common`, `product`, `management`, `support`). A package-level constant avoids a circular or awkward cross-import just to reach one string.
-- The regex accepts any RFC-3986-style `scheme:opaque-part`, not only `scheme://authority`, specifically so `mailto:`/`tel:`-style URIs pass. `Support.url`'s docstring explicitly names `mailto` as a valid scheme upstream, but the pattern this port inherited required `://` and silently rejected it: fixed in this pass.
+- The regex accepts any RFC-3986-style `scheme:opaque-part`, not only `scheme://authority`, specifically so `mailto:`/`tel:`-style URIs pass. `Support.url`'s docstring explicitly names `mailto` as a valid scheme upstream, so a pattern requiring `://` would silently reject URLs the standard permits.
 
 ## Library Conventions
 

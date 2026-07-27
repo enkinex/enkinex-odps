@@ -1,15 +1,22 @@
+# Test for the `support` module: Support across every `tool` and `scope` value
+# upstream documents, including the mailto: scheme the URL pattern must accept,
+# and the TagsDiscoverable tail.
 apiVersion: v1.0.0
 kind: DataProduct
-id: 66666666-6666-4666-8666-666666666666
-name: Support Channels Test
+id: d47a1e10-0005-4c00-8000-0000000000d5
+name: Support Module Test
+version: 1.0.0
 status: active
 
 support:
+  # Minimal channel using the mailto: scheme (not scheme://authority)
   - channel: "Support Email"
     url: "mailto:data-support@enkinex.example"
     description: "Primary email support channel"
     tool: email
     scope: issues
+
+  # Complete channel: invitationUrl plus the whole discoverable tail
   - channel: "Data Team Slack"
     url: "https://enkinex.slack.com/archives/C0000000001"
     description: "Interactive Slack channel for data product questions"
@@ -23,22 +30,27 @@ support:
     authoritativeDefinitions:
       - type: implementation
         url: "https://git.enkinex.example/repo/slack-bot"
+
+  # Remaining tool/scope combinations, one channel each
   - channel: "Announcements Teams Channel"
     url: "https://teams.microsoft.com/l/channel/announcements"
     description: "Announcement-only channel"
     tool: teams
     scope: announcements
+
   - channel: "Community Discord"
     url: "https://discord.gg/enkinex-example"
     description: "Community discussion server"
     tool: discord
     scope: interactive
     invitationUrl: "https://discord.gg/invite-code"
+
   - channel: "Issue Tracker"
     url: "https://issues.enkinex.example/project/DATA"
     description: "Ticketing system for reporting problems"
     tool: ticket
     scope: issues
+
   - channel: "Other Channel"
     url: "https://other.enkinex.example/support"
     description: "Catch-all support tool"

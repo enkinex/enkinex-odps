@@ -1,0 +1,72 @@
+# Test for the `common` module: CustomProperty, AuthoritativeDefinition, Tags
+# and the two reuse bases (AuthoritativeCustomizable, TagsDiscoverable),
+# exercised from the root DataProduct and from the nested Description object.
+apiVersion: v1.0.0
+kind: DataProduct
+id: d47a1e10-0001-4c00-8000-0000000000d1
+name: Common Module Test
+version: 2.3.1-beta
+status: proposed
+
+# Root fundamentals owned by odps.k: optional metadata, a pre-release version
+# string, and the ISO-8601 date-time check on productCreatedTs
+domain: analytics
+tenant: Enkinex
+productCreatedTs: "2024-03-05T08:15:30.250Z"
+
+# Root-level tags (TagsDiscoverable tail on DataProduct)
+tags: ["core", "root-level", "test"]
+
+# Root customProperties: one entry per `value` type variation, first entry is
+# complete (description set), the rest are minimal
+customProperties:
+  - property: stringProperty
+    value: "a plain string value"
+    description: "Complete CustomProperty carrying the optional description"
+  - property: numberProperty
+    value: 42
+  - property: floatProperty
+    value: 3.14159
+  - property: booleanProperty
+    value: true
+  - property: listProperty
+    value: ["a", "b", "c"]
+  - property: mapProperty
+    value:
+      nestedKey: nestedValue
+      nestedNumber: 7
+
+# Root authoritativeDefinitions: one entry per `type` example listed upstream,
+# first is complete (description set), the rest are minimal (type + url)
+authoritativeDefinitions:
+  - type: businessDefinition
+    url: "https://glossary.enkinex.example/core-fields"
+    description: "Business glossary entry for this data product"
+  - type: transformationImplementation
+    url: "https://git.enkinex.example/repo/transform.sql"
+  - type: videoTutorial
+    url: "https://videos.enkinex.example/tutorial"
+  - type: tutorial
+    url: "https://docs.enkinex.example/tutorial"
+  - type: implementation
+    url: "https://git.enkinex.example/repo/impl"
+
+# Description exercises the no-tags AuthoritativeCustomizable base,
+# with every direct field plus both inherited blocks populated
+description:
+  purpose: "Provide a canonical view of the description block with every optional field populated."
+  limitations: "Not to be used for real-time decisioning; refreshed daily only."
+  usage: "Recommended for analytics and reporting use cases, not transactional workloads."
+  authoritativeDefinitions:
+    - type: businessDefinition
+      url: "https://glossary.enkinex.example/description"
+      description: "Definition for description-level authority"
+    - type: implementation
+      url: "https://git.enkinex.example/repo/description-impl"
+  customProperties:
+    - property: reviewedBy
+      value: "data-governance-team"
+    - property: reviewCycleDays
+      value: 90
+    - property: piiPresent
+      value: false

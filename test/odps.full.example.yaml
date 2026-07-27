@@ -1,15 +1,21 @@
+# Full ODPS example: every field of the root DataProduct and of every module
+# schema, in one document. The per-module fixtures (odps.module.*.yaml) isolate
+# each module; this one proves they compose.
+
+# What's this data product about?
 apiVersion: v1.0.0
 kind: DataProduct
-id: 99999999-0000-4000-8000-000000000099
-name: Full Standard Test
+id: d47a1e10-0000-4c00-8000-0000000000d0
+name: Full Example Data Product
 version: 4.2.0
 status: active
 domain: retail-analytics
 tenant: Enkinex
-productCreatedTs: "2024-06-01T09:00:00+02:00"
+productCreatedTs: "2024-06-01T09:00:00+02:00" # ISO-8601 with a numeric UTC offset
 
-tags: ["test", "full-standard", "reference"]
+tags: ["test", "full-example", "reference"]
 
+# Root customProperties, one entry per `value` type variation
 customProperties:
   - property: dataClassification
     value: "internal"
@@ -24,26 +30,28 @@ customProperties:
       availabilityPercent: 99.9
       maxLatencySeconds: 300
 
+# Root authoritativeDefinitions, one per `type` example listed upstream
 authoritativeDefinitions:
   - type: businessDefinition
-    url: "https://glossary.enkinex.example/full-standard"
+    url: "https://glossary.enkinex.example/full-example"
     description: "Root-level glossary entry"
   - type: transformationImplementation
-    url: "https://git.enkinex.example/repo/full-standard-transform"
+    url: "https://git.enkinex.example/repo/full-example-transform"
   - type: videoTutorial
-    url: "https://videos.enkinex.example/full-standard"
+    url: "https://videos.enkinex.example/full-example"
   - type: tutorial
-    url: "https://docs.enkinex.example/full-standard"
+    url: "https://docs.enkinex.example/full-example"
   - type: implementation
-    url: "https://git.enkinex.example/repo/full-standard-impl"
+    url: "https://git.enkinex.example/repo/full-example-impl"
 
+# Description with every direct field plus both inherited blocks
 description:
   purpose: "Consolidated retail analytics view spanning payments, transactions and returns."
   limitations: "Not suitable for real-time fraud detection; batch-refreshed every 15 minutes."
   usage: "Use for reporting, BI dashboards, and downstream ML feature engineering."
   authoritativeDefinitions:
     - type: businessDefinition
-      url: "https://glossary.enkinex.example/full-standard-description"
+      url: "https://glossary.enkinex.example/full-example-description"
     - type: implementation
       url: "https://git.enkinex.example/repo/description-impl"
   customProperties:
@@ -52,6 +60,7 @@ description:
     - property: approvedForExternalSharing
       value: false
 
+# Expectations: what this data product consumes (minimal, then complete)
 inputPorts:
   - name: payments
     version: 1.0.0
@@ -67,6 +76,8 @@ inputPorts:
       - type: businessDefinition
         url: "https://mydata.enkinex.example/dictionary"
 
+# Promises: what this data product produces, the second version carrying
+# an SBOM and its upstream contract dependencies
 outputPorts:
   - name: rawtransactions
     description: "Raw transactions feed"
@@ -95,6 +106,7 @@ outputPorts:
       - id: ec2a112d-5cfe-49f3-8760-f9cfb4597544
         version: 1.0.0
 
+# Management ports: one per documented `content` value, across both transports
 managementPorts:
   - name: catalog-discovery
     content: discoverability
@@ -127,6 +139,7 @@ managementPorts:
       - type: implementation
         url: "https://mykafka.enkinex.example/topic"
 
+# Support and communication channels, covering several tool/scope pairs
 support:
   - channel: "Data Team Slack"
     url: "https://enkinex.slack.com/archives/C1234567890"
@@ -151,6 +164,8 @@ support:
     tool: ticket
     scope: issues
 
+# Ownership, including a member replacement (dateOut paired with
+# replacedByUsername) and the member who replaced them
 team:
   name: "Data Team"
   description: "The Data Team is responsible for the data product."
