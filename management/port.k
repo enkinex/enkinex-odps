@@ -1,24 +1,45 @@
 import regex
-import common
+
+import ..common
 
 schema ManagementPort(common.TagsDiscoverable):
     """
-    Management port for managing the data product.
+    A management port defining an access point for managing the data product.
 
     Attributes
     ----------
-    name : str, required
+    name: str, default is Undefined, required.
         Endpoint identifier or unique name.
-    content : str, required
-        Content type.
-    $type : str, default is "rest", optional
-        Type: can be `rest` or `topic`. Default is `rest`.
-    url : str, optional
+    content: str, default is Undefined, required.
+        The kind of management capability the endpoint exposes.
+        Examples: "discoverability", "observability", "control", "dictionary".
+    type: str, default is "rest", optional.
+        Transport used to reach the endpoint.
+        Examples: "rest", "topic".
+    url: str, default is Undefined, optional.
         URL to access the endpoint.
-    channel : str, optional
+    channel: str, default is Undefined, optional.
         Channel to communicate with the data product.
-    description : str, optional
-        Purpose and usage.
+    description: str, default is Undefined, optional.
+        Purpose and usage of the endpoint.
+
+    Examples
+    --------
+    catalogDiscovery = ManagementPort {
+        name = "catalog-discovery"
+        content = "discoverability"
+        $type = "rest"
+        url = "https://api.enkinex.example/catalog"
+        description = "Catalog discovery endpoint."
+    }
+
+    dictionaryUpdates = ManagementPort {
+        name = "tpc-dict-update"
+        content = "dictionary"
+        $type = "topic"
+        channel = "tpc-dict-update"
+        description = "Kafka topic for dictionary updates."
+    }
     """
     name: str
     content: str
@@ -28,5 +49,5 @@ schema ManagementPort(common.TagsDiscoverable):
     description?: str
 
     check:
-        regex.match(url, common.urlPattern) if url
+        regex.match(url, common.urlPattern) if url, "url must be a valid URI"
 

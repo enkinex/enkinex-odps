@@ -1,13 +1,21 @@
+# Test for the `product.input` module: InputPort, including the
+# TagsDiscoverable tail (tags, customProperties, authoritativeDefinitions).
+# InputContract is exercised from the output port, its only consumer:
+# see odps.module.product-output.yaml.
 apiVersion: v1.0.0
 kind: DataProduct
-id: 33333333-3333-4333-8333-333333333333
-name: Input Port Test
+id: d47a1e10-0003-4c00-8000-0000000000d3
+name: Product Input Module Test
+version: 1.0.0
 status: active
 
 inputPorts:
+  # Minimal input port: only the three mandatory fields
   - name: minimal-input
     version: 1.0.0
     contractId: aaaaaaaa-0000-4000-8000-000000000001
+
+  # Complete input port: every optional block populated
   - name: full-input
     version: 2.1.0
     contractId: aaaaaaaa-0000-4000-8000-000000000002

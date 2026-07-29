@@ -1,15 +1,24 @@
+# Test for the `management` module: ManagementPort across every `content`
+# value upstream documents, both `type` transports, and the TagsDiscoverable
+# tail (tags, customProperties, authoritativeDefinitions).
 apiVersion: v1.0.0
 kind: DataProduct
-id: 55555555-5555-4555-8555-555555555555
-name: Management Port Test
+id: d47a1e10-0002-4c00-8000-0000000000d2
+name: Management Module Test
+version: 1.0.0
 status: retired
 
+# Ports go from minimal to complete, one per documented `content` value.
+# The last entry omits `type` so the "rest" default applies.
 managementPorts:
+  # Minimal REST port: only the mandatory name/content plus a url
   - name: discovery-endpoint
     content: discoverability
     type: rest
     url: "https://api.enkinex.example/discovery"
     description: "REST endpoint for catalog discoverability"
+
+  # Complete REST port: the discoverable tail fully populated
   - name: metrics-endpoint
     content: observability
     type: rest
@@ -22,12 +31,16 @@ managementPorts:
     authoritativeDefinitions:
       - type: implementation
         url: "https://git.enkinex.example/repo/metrics-impl"
+
+  # REST port carrying both url and channel
   - name: control-endpoint
     content: control
     type: rest
     url: "https://api.enkinex.example/control"
     channel: "internal-ops"
     description: "Control plane endpoint for lifecycle operations"
+
+  # Topic port: channel instead of url, exercising the `topic` transport
   - name: dictionary-updates
     content: dictionary
     type: topic
@@ -40,6 +53,8 @@ managementPorts:
     authoritativeDefinitions:
       - type: businessDefinition
         url: "https://glossary.enkinex.example/dictionary-topic"
+
+  # `type` omitted: falls back to the "rest" default declared on the schema
   - name: default-type-endpoint
     content: discoverability
     url: "https://api.enkinex.example/default-type"
