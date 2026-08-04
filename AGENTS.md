@@ -30,5 +30,5 @@ clean-tree + lint + test). Run `just fmt` and commit before `just check`.
 - Contributing rules: [CONTRIBUTING.md](CONTRIBUTING.md) — branch
   `<type>/<short-slug>`, Conventional Commits subset, squash-merge.
 
-Shared enkinex workflow/git rules: [.opencode/shared/AGENTS.md](.opencode/shared/AGENTS.md)
+Shared enkinex workflow/git rules: [AGENTS.shared.md](AGENTS.shared.md)
 (synced from enkinex-aiops per ADR-0005 — do not edit here).
