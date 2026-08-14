@@ -64,4 +64,3 @@ schema OutputPort(common.TagsDiscoverable):
     contractId?: str
     sbom?: [product.Sbom]
     inputContracts?: [input.InputContract]
-

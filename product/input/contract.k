@@ -18,4 +18,3 @@ schema InputContract:
     """
     id: str
     version: str
-

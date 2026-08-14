@@ -39,4 +39,3 @@ schema InputPort(common.TagsDiscoverable):
     name: str
     version: str
     contractId: str
-

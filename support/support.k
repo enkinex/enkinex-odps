@@ -54,4 +54,3 @@ schema Support(common.TagsDiscoverable):
     check:
         regex.match(url, common.urlPattern), "url must be a valid URI"
         regex.match(invitationUrl, common.urlPattern) if invitationUrl, "invitationUrl must be a valid URI"
-

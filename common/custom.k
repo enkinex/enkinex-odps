@@ -13,4 +13,3 @@ schema AuthoritativeCustomizable:
     """
     customProperties?: [CustomProperty]
     authoritativeDefinitions?: [AuthoritativeDefinition]
-

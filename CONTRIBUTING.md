@@ -6,7 +6,7 @@ everything you need to build, validate, and submit changes.
 
 ## Prerequisites
 
-- [KCL Language CLI](https://www.kcl-lang.io/docs/user_docs/getting-started/install) `>= 0.12.7`
+- [KCL Language CLI](https://www.kcl-lang.io/docs/user_docs/getting-started/install) `>= 0.12.8`
 - [`just` Command Runner](https://github.com/casey/just).
 
 Check both are on your `PATH`:
