@@ -24,5 +24,9 @@ jobs:
       - name: kcl mod update
         run: just init
 
-      - name: Run tests
-        run: just test
+      # `just check`, not `just test`: the recipe formats, proves the tree is
+      # unchanged by it, lints, then tests. CI used to call only the last step,
+      # so fmt and lint were ungated here — which is how 53 unformatted files
+      # reached main in enkinex-odcs without a single red check (AIOPS-16).
+      - name: Run checks
+        run: just check
