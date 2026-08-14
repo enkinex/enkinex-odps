@@ -28,4 +28,3 @@ schema Description(AuthoritativeCustomizable):
     purpose?: str
     limitations?: str
     usage?: str
-

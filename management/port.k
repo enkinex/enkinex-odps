@@ -50,4 +50,3 @@ schema ManagementPort(common.TagsDiscoverable):
 
     check:
         regex.match(url, common.urlPattern) if url, "url must be a valid URI"
-

@@ -27,4 +27,3 @@ schema Sbom:
 
     check:
         regex.match(url, common.urlPattern), "url must be a valid URI"
-

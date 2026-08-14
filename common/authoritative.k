@@ -43,4 +43,3 @@ schema AuthoritativeDefinition:
 
     check:
         regex.match(url, urlPattern), "url must be a valid URI"
-

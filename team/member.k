@@ -58,4 +58,3 @@ schema TeamMember(common.TagsDiscoverable):
         regex.match(dateIn, common.datePattern) if dateIn, "dateIn must be an ISO-8601 date (YYYY-MM-DD)"
         regex.match(dateOut, common.datePattern) if dateOut, "dateOut must be an ISO-8601 date (YYYY-MM-DD)"
         replacedByUsername == Undefined or dateOut != Undefined, "dateOut should be set when replacedByUsername is provided"
-

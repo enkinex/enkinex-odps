@@ -113,4 +113,3 @@ schema DataProduct(common.TagsDiscoverable):
         len(id) > 0, "id must not be empty"
         version == Undefined or len(version) > 0, "version must not be empty when provided"
         regex.match(productCreatedTs, r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$") if productCreatedTs, "productCreatedTs must be an ISO-8601 timestamp"
-

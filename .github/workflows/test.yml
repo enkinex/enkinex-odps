@@ -7,6 +7,9 @@ on:
     branches: [main]
   workflow_dispatch: {}
 
+env:
+  KCL_VERSION: "0.12.8"
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install KCL
-        run: wget -q https://kcl-lang.io/script/install-cli.sh -O - | /bin/bash
+        run: curl -fsSL https://kcl-lang.io/script/install-cli.sh | bash -s -- -v "${KCL_VERSION}"
 
       - uses: extractions/setup-just@v2
 

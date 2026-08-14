@@ -29,4 +29,3 @@ schema CustomProperty:
     property: str
     value: any
     description?: str
-

@@ -38,4 +38,3 @@ schema Team(common.TagsDiscoverable):
     name?: str
     description?: str
     members?: [TeamMember]
-

@@ -14,4 +14,3 @@ schema TagsDiscoverable(AuthoritativeCustomizable):
         Examples: "finance", "sensitive", "employee_record".
     """
     tags?: Tags
-
